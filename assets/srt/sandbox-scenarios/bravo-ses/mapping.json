@@ -1,0 +1,30 @@
+{
+  "_comment": "Issuer mapping for the synthetic Bravo (EUR, SES-bearing) registry in this folder. Added 2026-09-11 so the scenario is exercised by a real script test (tests/srt/test_sandbox_bravo.py), not only read as documentation.",
+  "issuer": "EXAMPLE_BRAVO_STYLE",
+  "source": { "type": "csv", "registry_sheet": null, "header_row": 1 },
+  "column_map": {
+    "obligor_id": "Obligor",
+    "obligor_name": "Obligor",
+    "country_domicile": "Country of Domicile",
+    "country_incorporation": "Country of Incorporation",
+    "industry": "Industry",
+    "rating": "Last Rating",
+    "maturity_date": "Maturity Date",
+    "rona": "RONA (EUR mm)",
+    "pd": "Probability of Default",
+    "recovery": "Recovery Rate",
+    "seniority": "Seniority",
+    "status": "Status"
+  },
+  "transforms": {
+    "pd_scale": 1.0,
+    "recovery_scale": 1.0,
+    "rona_scale": 1.0,
+    "date_formats": ["%Y-%m-%d"],
+    "rating_bucket_map": { "AAA": "IG", "AA": "IG", "A": "IG", "BBB": "IG", "BB": "BB", "B": "B", "CCC": "CCC", "NR": "NA", "": "NA" }
+  },
+  "status_rules": { "defaulted_values": ["Defaulted", "Default", "D"] },
+  "deal_meta": { "deal": "Bravo SRT 2025", "currency": "EUR", "stated_reference_notional": 1000 },
+  "required_fields": ["rona", "maturity_date", "pd"],
+  "tie_out": { "count_defaulted_in_total": true, "tolerance_pct": 0.005 }
+}

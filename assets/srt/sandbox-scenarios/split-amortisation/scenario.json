@@ -1,0 +1,27 @@
+{
+  "id": "split-amortisation",
+  "title": "Junior tranche pro-rata, senior tranche sequential (split amortisation)",
+  "run_type": "standard_roll_forward",
+  "deal": "Sandbox Split Amortisation",
+  "capital_structure": [
+    {"tranche": "Senior", "amortisation": "sequential"},
+    {"tranche": "Mezzanine", "amortisation": "pro_rata"},
+    {"tranche": "Junior/Equity", "amortisation": "pro_rata"}
+  ],
+  "model_constraint": {
+    "control_cell": "D25 ProRata_Amort",
+    "type": "single deal-level boolean (TRUE=pro-rata, FALSE=sequential)",
+    "can_express_split": false
+  },
+  "expected": {
+    "must_recognise_single_flag_cannot_express_split": true,
+    "must_not_silently_pick_one_flag": true,
+    "must_stop_and_escalate_to_reviewer": true,
+    "acceptable_resolutions": [
+      "separate runs per tranche with documented scope",
+      "structural workaround agreed with your reviewer",
+      "model change to support per-tranche amortisation"
+    ],
+    "report_ready_without_review": false
+  }
+}

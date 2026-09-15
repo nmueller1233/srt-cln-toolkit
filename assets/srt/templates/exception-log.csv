@@ -1,0 +1,4 @@
+Exception ID,Description,Severity,Resolution Status,Impact / Notes,Owner,Resolution Evidence
+X01,(example) Registry column for recovery is ambiguous - two candidate columns,Warning,Open,PD/LGD weighting blocked until column confirmed,{owner},
+X02,(example) Deal carries SES but accumulated balance not in trustee report,Blocker,Open,Writedown would be overstated; verify vs legal doc,{owner},
+X03,(example) SOFR fixing date is prior business day vs calendar month-end label,Info,Accepted,Consistent with month-end convention; reviewer confirmed,{reviewer},link-to-note

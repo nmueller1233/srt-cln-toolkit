@@ -1,0 +1,22 @@
+{
+  "id": "new-deal",
+  "title": "New SRT deal setup",
+  "run_type": "new_deal",
+  "deal": "Sandbox New Deal",
+  "issue_date": "2026-05-15",
+  "valuation_date": "2026-05-15",
+  "currency": "USD",
+  "legal_extraction": "manual_source_only",
+  "tranches": [
+    {"name": "Senior", "margin_decimal": 0.0110, "original_balance": 1840.0},
+    {"name": "Mezz", "margin_decimal": 0.0450, "original_balance": 100.0},
+    {"name": "Equity", "margin_decimal": 0.0900, "original_balance": 60.0}
+  ],
+  "expected": {
+    "classify_as_roll_forward": false,
+    "calibrate_origination_dm_once": true,
+    "goal_seek_target": "equity_clean_price_to_par",
+    "do_not_roll_prior_spread": true,
+    "human_legal_review_required": true
+  }
+}

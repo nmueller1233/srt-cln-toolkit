@@ -1,0 +1,23 @@
+{
+  "name": "structured-credit-automation",
+  "version": "0.2.0",
+  "description": "SRT/CLN router for Srt dcf.xlsm: calibration, registry inputs, quarterly updates, evidence, and review readiness; never writes the model or approves a mark.",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Structured Credit Automation",
+    "shortDescription": "Route SRT/CLN calibration, registry, update, evidence, and review work around Srt dcf.xlsm.",
+    "longDescription": "Routes SRT / CLN work around Srt dcf.xlsm: calibration, legal mechanics, registry inputs, quarterly updates, review, conceptual help, and report-only copula. Automates deterministic prep and read-only checks only; the model remains human-driven.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": [],
+    "websiteURL": "https://structured-credit-automation.local/",
+    "privacyPolicyURL": "https://structured-credit-automation.local/privacy",
+    "termsOfServiceURL": "https://structured-credit-automation.local/terms",
+    "defaultPrompt": [
+      "Help me run an SRT workflow update."
+    ]
+  }
+}

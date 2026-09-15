@@ -1,0 +1,13 @@
+Evidence ID,Description,Evidence Type,Path / Reference,Status,Required?,Owner,Notes
+E01,Run intake (deal/period/classification/expected outputs),Intake record,{period_folder}\run-state.json,Missing,Required,{owner},
+E02,Source model copy,File path,{period_folder}\Srt dcf {DEAL} {PERIOD}.xlsm,Missing,Required,{owner},Copy only; template untouched
+E06,Reference registry / trustee report,Source workbook,{period_folder}\inputs\reference-registry.csv,Missing,Required,{owner},Note tab + columns; tie SUM(RONA) to registry total
+E07,PD/LGD calculation,Calc range / control note,{period_folder}\work\pd-lgd.xlsx,Missing,Required,{owner},Recovery->LGD conversion; RONA-weighted or strata
+E07b,S&P fallback snapshot (if used),Source/version/date,{ref},Missing,As needed,{owner},Verify vintage each period
+E08,SES rate / accumulated balance / netting,Legal + registry source,{ref},Missing,As needed,{owner},Only if deal carries SES
+E09,Discount-factor refresh,Rates export + before/after DF,{period_folder}\work\rates.xlsx,Missing,Required,{owner},State day-count basis
+E09b,Base-rate fixing,Source URL + date + value,{url},Missing,Required,{owner},SOFR (NY Fed) / EURIBOR; match val convention
+E10,Spread Analysis roll,CapIQ benchmark + before/after DM bridge,{period_folder}\work\spread-bridge.xlsx,Missing,Required,{owner},Record benchmark + dampening factor
+E11,Scenario outputs (price/DM/writedown),Scenario log,{period_folder}\work\scenarios.csv,Missing,Required,{owner},Plus current attach/detach
+E12,Mark-movement attribution,Attribution record,{period_folder}\evidence\mark-attribution.md,Missing,Required,{owner},Per tranche vs prior
+E13,Model QA,Check summary,{period_folder}\evidence\qa.md,Missing,Required,{owner},D3/D4 = OK; formula-error scan

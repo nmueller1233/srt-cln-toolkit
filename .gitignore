@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+
+# defensive: keep model data out of git
+*.xlsm
+*.xlsx
+sample-models/
+# firm-internal release - no workbooks unless allow-listed; the manifest decides what ships, and the
+# commit adds every staged file (a source .gitignore never drops one)
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+_private/
+*.xlsb
+*.xls

@@ -1,0 +1,37 @@
+{
+  "id": "ses-hardcoded-default",
+  "title": "SES present, prior quarter hardcoded, new default this quarter",
+  "run_type": "standard_roll_forward",
+  "period_end": "2026-06-30",
+  "deal": "Sandbox SES Default",
+  "currency": "EUR",
+  "ses": {
+    "present": true,
+    "prior_quarter_value_was_hardcoded": true,
+    "basis": "trapped_accumulating",
+    "annual_rate": 0.0075,
+    "brought_forward_balance": 7.5,
+    "performing_balance": 970.0,
+    "quarter_fraction": 0.25
+  },
+  "new_default_obligation": {
+    "obligor": "Carpathia",
+    "rona": 30.0,
+    "lgd": 0.40,
+    "status": "Defaulted"
+  },
+  "expected": {
+    "ses_accrual": 1.81875,
+    "ses_available": 9.31875,
+    "gross_realized_loss": 12.0,
+    "residual_loss_to_tranche": 2.68125,
+    "performing_pool_excludes_default": true,
+    "must_not_reuse_hardcoded_prior_quarter_ses": true,
+    "requires_evidence": [
+      "prior hardcode identified",
+      "SES recomputed from current source",
+      "new default removed from forward performing pool",
+      "gross loss netted against SES before tranche allocation"
+    ]
+  }
+}

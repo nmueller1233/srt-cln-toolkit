@@ -1,0 +1,29 @@
+{
+  "id": "composition-trigger",
+  "title": "Sequential trigger defined in the legal agreement on reference-portfolio composition",
+  "run_type": "standard_roll_forward",
+  "deal": "Sandbox Composition Trigger",
+  "legal_trigger": {
+    "source": "indenture / CDS confirmation (must be extracted, not assumed)",
+    "tests": [
+      {"name": "CCC_concentration", "field_required": "rating", "threshold_max": 0.075, "basis": "% of current reference notional rated CCC+/Caa1 or below"},
+      {"name": "single_industry_concentration", "field_required": "industry", "threshold_max": 0.20, "basis": "largest single GICS/NAICS industry as % of current reference notional"}
+    ],
+    "consequence_if_breached": "amortisation switches pro_rata -> sequential"
+  },
+  "current_portfolio": {
+    "ccc_or_below_pct": 0.091,
+    "largest_industry_pct": 0.17
+  },
+  "expected": {
+    "must_extract_threshold_from_legal_not_assume": true,
+    "must_compute_metric_from_current_registry": true,
+    "ccc_test_breached": true,
+    "industry_test_breached": false,
+    "must_not_continue_pro_rata_after_breach": true,
+    "must_update_payment_waterfall_or_stop_for_human_review": true,
+    "must_stop_if_registry_lacks_rating_or_industry_field": true,
+    "mark_requires_trigger_attribution": true,
+    "verify_test_definition_with_reviewer": true
+  }
+}

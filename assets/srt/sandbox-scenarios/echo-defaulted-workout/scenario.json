@@ -1,0 +1,57 @@
+{
+  "id": "echo-defaulted-workout",
+  "title": "Borrower defaults mid-life: estimated (non-liquidated) severity, SES netting, then realised true-up",
+  "run_type": "standard_roll_forward",
+  "deal": "SYNTH SRT 2025 (synthetic)",
+  "pool_notional_mm": 1000,
+  "capital_structure": {
+    "equity": {"attach_pct": 0.00, "detach_pct": 0.03, "thickness_mm": 30},
+    "mezz":   {"attach_pct": 0.03, "detach_pct": 0.07, "thickness_mm": 40},
+    "senior": {"attach_pct": 0.07, "detach_pct": 1.00, "thickness_mm": 930}
+  },
+  "defaulted_obligation": {
+    "obligor_id": "Spruce Logistics",
+    "rona_mm": 40,
+    "seniority": "Senior Unsecured",
+    "status": "Defaulted",
+    "liquidated": false,
+    "estimated_recovery": 0.40,
+    "realised_recovery": 0.30
+  },
+  "ses": {
+    "annual_rate": 0.0075,
+    "performing_balance_mm": 960,
+    "quarter_fraction": 0.25,
+    "basis": "use_it_or_lose_it",
+    "brought_forward_balance_mm": 0
+  },
+  "expected": {
+    "interim": {
+      "severity_source": "H11_estimated",
+      "estimated_lgd": 0.60,
+      "gross_estimated_loss_mm": 24.0,
+      "ses_available_mm": 1.8,
+      "residual_to_tranche_mm": 22.2,
+      "equity_absorbed_mm": 22.2,
+      "equity_remaining_mm": 7.8,
+      "mezz_writedown_mm": 0.0
+    },
+    "final": {
+      "severity_source": "H10_realised",
+      "realised_lgd": 0.70,
+      "realised_loss_mm": 28.0,
+      "true_up_mm": 4.0,
+      "cumulative_loss_post_ses_mm": 26.2,
+      "equity_remaining_mm": 3.8,
+      "mezz_writedown_mm": 0.0
+    },
+    "must_exclude_defaulted_from_forward_performing_pd_lgd": true,
+    "must_keep_defaulted_in_notional_tieout": true,
+    "interim_is_estimated_not_realised": true,
+    "ses_netted_before_tranche_allocation": true,
+    "realised_severity_worse_than_estimate_downturn": true,
+    "true_up_can_flow_either_direction": true,
+    "deal_specific_requires_reviewer_verification": true
+  },
+  "notes": "Synthetic. Illustrates references/defaulted-and-nonliquidated-borrowers.md, ses.md, and srt-waterfall-and-triggers.md. Conventions this key assumes (stated 2026-09-11): the SES accrual base is the post-default performing balance (960) on a flat 0.25 quarter, and the realised true-up (4.0) is netted against the SES that was available when it crystallised, not against a later period's accrual; a deal whose documents accrue SES every period on the opening balance would give a different final figure. The live mark and SES/credit-event/true-up mechanics are governed by the deal documents and Srt dcf.xlsm; confirm with a reviewer before any live use."
+}

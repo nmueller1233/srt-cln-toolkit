@@ -1,0 +1,47 @@
+{
+  "schema_version": "submission-template-v0.2.0",
+  "_comment": "The ONLY environment-specific file in this skill. Fill in local paths after installing the plugin in an approved environment. Do not commit live client, borrower, transaction, ticker, vendor, user-profile, or machine-specific paths. Every __SET_...__ value is a placeholder; a read-only review can leave all but the three model_skeleton/corpus_root keys unset (see INSTALL.md step 2).",
+  "host": "portable-host",
+  "corpus_root": "__SET_LOCAL_CORPUS_ROOT__",
+  "asset_class": "01_SRT",
+  "process_docs": {
+    "_comment": "Optional pointers to the desk's own process documents. The canonical process shipped with this toolkit is assets/srt/references/process.md; these entries are only for cross-reference on a machine that holds the desk's Word/PDF versions.",
+    "current_process_doc": "__OPTIONAL_PATH_TO__/SRT quarterly update process.docx",
+    "legal_extraction_prompt": "__OPTIONAL_PATH_TO__/SRT legal extraction protocol.pdf",
+    "legal_to_model_mapping": "__OPTIONAL_PATH_TO__/SRT legal-to-model mapping.pdf",
+    "report_update_prompt": "__OPTIONAL_PATH_TO__/SRT report update prompt.pdf",
+    "report_template_prompt": "__OPTIONAL_PATH_TO__/SRT report template.docx"
+  },
+  "model_skeleton": {
+    "srt_dcf_model": "__SET_PATH_TO__/Srt dcf.xlsm",
+    "gaussian_copula_support": "__OPTIONAL_PATH_TO__/SRT_GaussianCopula.xlsx",
+    "cln_performance_curve": "__SET_PATH_TO__/cln.xlsx",
+    "_note": "Srt dcf.xlsm is the valuation source of truth. The Gaussian copula is report-only (correlation exhibit) and excluded from the model-update pilot. cln.xlsx holds the Performance Curves tab (registry aggregation target); write inputs-only into a COPY, preserve formulas (scripts/srt-registry-inputs/aggregate_to_cln.py)."
+  },
+  "control_tower": {
+    "rulebook": "AGENTS.md",
+    "control_workbook": "__OPTIONAL_PATH_TO__/automation control workbook.xlsx",
+    "drive_inventory": "__OPTIONAL_PATH_TO__/drive automation inventory.md",
+    "starter_kit": "__SET_LOCAL_STARTER_KIT_ROOT__",
+    "run_state_example": "__SET_LOCAL_RUN_STATE_EXAMPLE__"
+  },
+  "run_io": {
+    "_comment": "Per-run working locations. {DEAL} and {PERIOD} are filled at run intake. Use redacted/non-client test data unless permissions for the specific run are confirmed.",
+    "period_folder_pattern": "__SET_APPROVED_WORKING_ROOT__\\{CLIENT}\\01_SRT\\{DEAL}\\{PERIOD}",
+    "reference_registry_input": "{period_folder}\\inputs\\reference-registry.csv",
+    "cln_legal_input": "{period_folder}\\inputs\\cln-terms.*",
+    "prior_period_mark": "{period_folder}\\..\\{prior_period}\\evidence\\mark-attribution.md",
+    "evidence_log_output": "{period_folder}\\evidence\\evidence-log.csv",
+    "exception_log_output": "{period_folder}\\evidence\\exception-log.csv",
+    "run_state_output": "{period_folder}\\run-state.json"
+  },
+  "reference_examples": {
+    "_comment": "Optional local visual examples of trustee or investor report layouts. Do not submit real client examples or machine-specific paths. Bundled sandbox scenarios are synthetic and safe to use for tests.",
+    "example_registries_dir": "__OPTIONAL_LOCAL_EXAMPLE_REGISTRIES_DIR__",
+    "registry_tab_of_interest": "Current - Reference Portfolio",
+    "cln_terms_tab_of_interest": "Notes Information",
+    "exported": false
+  },
+  "mock_scenarios_root": "assets\\srt\\sandbox-scenarios",
+  "_host_note": "Submission-safe template. A local operator edits only this file after install; workbook-bound tests skip loudly until the configured paths resolve."
+}

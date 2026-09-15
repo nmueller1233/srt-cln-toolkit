@@ -1,0 +1,62 @@
+{
+  "_comment": "Per-issuer mapping contract: how to normalize one trustee/issuer's reference tape into the canonical registry schema (canonical-registry-schema.md). Copy per issuer; fill the column names from that issuer's actual report. The adapter (scripts/srt-registry-inputs/normalize_tape.py) is mapping-driven, so a new issuer = a new mapping file, no code change.",
+  "issuer": "TEMPLATE_ISSUER",
+  "source": {
+    "type": "xlsx",
+    "_type_options": "csv | xlsx",
+    "registry_sheet": "Current - Reference Portfolio",
+    "_registry_sheet": "Sheet/tab holding the obligor-level reference portfolio (ignored for csv)",
+    "header_row": 1,
+    "_header_row": "1-based row index of the column headers"
+  },
+  "column_map": {
+    "_comment": "canonical_field : exact source column header. Omit a line if the issuer doesn't provide that field.",
+    "obligor_id": "Reference Entity",
+    "obligor_name": "Reference Entity",
+    "country_domicile": "Country of Domicile",
+    "country_incorporation": "Country of Incorporation",
+    "industry": "Industry",
+    "rating": "Last Rating",
+    "maturity_date": "Maturity Date",
+    "rona": "Reference Entity Notional Amount",
+    "pd": "Probability of Default",
+    "recovery": "Recovery Rate",
+    "lgd": null,
+    "seniority": "Seniority",
+    "status": "Status"
+  },
+  "transforms": {
+    "_comment": "Explicit unit handling. The adapter converts per these flags; it never infers.",
+    "pd_scale": 1.0,
+    "_pd_scale": "1.0 if PD is already decimal; 0.01 if reported as a percent number (e.g. 1.2 meaning 1.2%)",
+    "recovery_scale": 1.0,
+    "_recovery_scale": "1.0 if recovery is decimal; 0.01 if percent",
+    "rona_scale": 1.0,
+    "_rona_scale": "1.0 if RONA is already in base units; e.g. 1000000 if reported in millions and you want absolute",
+    "date_formats": ["%Y-%m-%d", "%d-%b-%y", "%d-%b-%Y", "%m/%d/%Y", "%d/%m/%Y"],
+    "_date_formats": "Tried in order to parse maturity_date into ISO; first match wins",
+    "rating_bucket_map": {
+      "AAA": "IG", "AA": "IG", "A": "IG", "BBB": "IG",
+      "BB": "BB", "B": "B", "CCC": "CCC", "CC": "CCC", "C": "CCC", "D": "CCC",
+      "NR": "NA", "": "NA"
+    },
+    "_rating_bucket_map": "Maps the leading rating token (AAA.. or notch like BB-) to a canonical bucket"
+  },
+  "status_rules": {
+    "defaulted_values": ["Defaulted", "Default", "D"],
+    "_defaulted_values": "Status cell values that mark a row as defaulted (excluded from the performing-pool weighting)"
+  },
+  "deal_meta": {
+    "deal": "FILL_DEAL_NAME",
+    "currency": "USD",
+    "stated_reference_notional": 0,
+    "_stated_reference_notional": "The tie-out target. From the trustee Capital Structure / Notes Information tab, or keyed at intake."
+  },
+  "required_fields": ["rona", "maturity_date"],
+  "tie_out": {
+    "count_defaulted_in_total": true,
+    "_count_defaulted_in_total": "Whether defaulted rows count toward SUM(rona) for the stated-notional tie-out",
+    "tolerance_pct": 0.005,
+    "_tolerance_pct": "Allowed |SUM(rona)-stated|/stated before it is a STOP (0.005 = 0.5%)"
+  }
+}

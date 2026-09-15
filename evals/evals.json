@@ -1,0 +1,111 @@
+{
+  "skill_name": "structured-credit-automation",
+  "target_audience": "SRT valuation analyst running the SRT/CLN quarterly fair-value update",
+  "_note": "Functional (methodology) eval set. E0-E4 are the iteration-2 usability evals; E5-E8 are the added SRT-specific failure mechanisms (negative accrual, composition trigger, split amortisation, registry granularity). Run with-skill vs baseline per the skill-creator loop; grade against the assertions. Triggering (does the router fire) is a separate, unpublished set kept in the author's evaluation workspace; it is not in this repository.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "quarterly-update-routing",
+      "prompt": "It's quarter-end. I need to update our SRT residual/equity CLN mark in 'Srt dcf.xlsm' for Q2. Give me the order of operations - what do I touch, what do I leave alone, and what do I need before I can call the mark done?",
+      "assertions": [
+        "Reflects the SRT quarterly update workflow specifically, not a generic valuation answer",
+        "Says to copy the workbook and edit only mapped HARD input cells; never overwrite formulas, named ranges, or engines",
+        "Identifies setting the Valuation Date (D10) as the quarterly update anchor and explicitly NOT re-solving the Origination DM (L30)",
+        "Gives an ordered sequence (registry/tape -> PD/LGD -> rates/DF -> DM roll -> checks -> attribution)",
+        "Requires the D3/D4 balance checks before trusting the output",
+        "States no mark is final without a 'vs. prior, because' attribution and human review"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "recovery-vs-lgd",
+      "prompt": "The trustee registry lists a 45% recovery rate on the senior unsecured reference obligors. I'm going to plug 45% straight into the model's severity input. That's right, yeah?",
+      "assertions": [
+        "Corrects the misconception: severity/LGD = 1 - recovery, so 45% recovery means 55% LGD (0.55)",
+        "Explicitly warns that entering 45% as severity inverts/understates the loss",
+        "Usability: gives the exact value to enter (0.55) concisely and confidently"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "defaulted-nonliquidated",
+      "prompt": "One of our reference names - Spruce Logistics, about $40mm RONA, senior unsecured - defaulted this quarter. The workout isn't finished so we don't have a final recovery yet. How do I handle its severity and the loss in the model, and what happens to the pool's PD/LGD?",
+      "assertions": [
+        "Uses ESTIMATED severity for the not-yet-liquidated name (interim), distinct from final/realised severity after the workout completes",
+        "Excludes the defaulted name from forward-performing PD/LGD",
+        "Keeps the defaulted RONA in the notional / tie-out",
+        "Nets the loss against synthetic excess spread (if the deal provides it) before any tranche writedown",
+        "Does NOT fabricate a recovery; flags credit-event/recovery/SES as deal-specific to verify before live use"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "mark-attribution",
+      "prompt": "Our SRT equity tranche mark dropped about 1.2 points versus last quarter and my MD will want a crisp reason. Context: CDS / CDX spread inputs widened ~30bp on the month, one obligor paid down, and there were no new defaults. Help me explain the move.",
+      "assertions": [
+        "Decomposes the move across rates / spread (DM roll) / paydown / credit",
+        "Attributes the bulk of the move to the ~30bp spread widening (ideally noting the dampened roll)",
+        "Notes the floating-rate tranche is largely insensitive to the benchmark LEVEL (rates leg approx 0)",
+        "Frames it explicitly as a 'vs. prior, because' narrative the MD can use"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "permissions-stop",
+      "prompt": "Attached is the actual signed CDS confirmation for the Marlin deal (live client document). Pull the attachment/detachment points and the SES rate out of it and update the mark for me.",
+      "assertions": [
+        "STOPS or declines to silently extract from a live client document without confirmed permission / redacted handling",
+        "Does NOT fabricate attachment/detachment/SES numbers",
+        "Routes to the legal-extraction/source-intake lane and/or asks for approval before proceeding"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "negative-accrual-calibration",
+      "prompt": "I'm calibrating the origination DM on a brand-new SRT deal - set the val date to issue, issue price to par, and goal-seeking the Origination DM so clean price hits par. But the accrued interest is printing NEGATIVE and the solved DM looks off. What's going on and how do I fix it?",
+      "assertions": [
+        "Identifies the cause as a date misalignment - the cashflow start date (CF_Start / D18) set AFTER the issue/valuation date, so the first accrual period start lands in the future and the day-count fraction goes negative",
+        "Names the J-column accrual (dirty minus clean) and that a negative accrual is the symptom, not a DM problem",
+        "Says do NOT trust / re-solve L30 against the malformed coupon; fix the dates first (D18 <= D10, first coupon >= D14) then re-solve",
+        "Treats negative accrued interest as a STOP / check before accepting the calibration",
+        "Does not invent a new DM value or paper over the negative accrual"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "composition-sequential-trigger",
+      "prompt": "Our synthetic deal's indenture has a sequential trigger that flips amortisation from pro-rata to sequential if the share of the reference pool rated CCC or below exceeds 7.5%, or if any single industry exceeds 20%. This quarter the registry shows 9.1% CCC and 17% in the largest industry. How do I reflect this in the model and the mark?",
+      "assertions": [
+        "Treats the thresholds as legal terms to be extracted from the indenture / deal docs, not assumed",
+        "Computes each metric from the CURRENT reference registry and concludes the CCC test is breached (9.1% > 7.5%) while the industry test is not (17% < 20%)",
+        "Because a test is breached, does NOT silently keep pro-rata; routes the pro-rata -> sequential switch (D25) as a STOP requiring human approval before changing the waterfall",
+        "Notes that evaluating the test requires the registry to carry a rating/industry field, and STOPs if that field is absent rather than guessing",
+        "Requires a trigger attribution on the mark and verification of the exact test definition with your reviewer"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "split-amortisation-stop",
+      "prompt": "In this synthetic risk transfer deal the senior tranche amortises sequentially but the junior amortises pro-rata. The model only has the one ProRata_Amort switch (D25). How should I set it up for the quarterly update?",
+      "assertions": [
+        "Recognises that D25 is a SINGLE deal-level boolean that cannot represent two amortisation mechanisms at once",
+        "Explains that setting D25 either way silently mis-amortises one side of the capital structure",
+        "Does NOT just pick TRUE or FALSE and proceed",
+        "Explains the model-expressiveness gap, says it needs your reviewer, and proposes acceptable resolutions (separate per-tranche runs, an approved workaround, or a model change)",
+        "Keeps the deliverable not client-ready until the representation is agreed"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "registry-granularity",
+      "prompt": "Last quarter the trustee gave us the reference registry obligor-by-obligor with ratings and industries. This quarter it came pre-bucketed by rating band with no per-name detail, and a different client's deal has a registry with no rating column at all. How do I handle these for the mark, and can I still run my concentration checks?",
+      "assertions": [
+        "Says notional tie-out (SUM of RONA to stated reference notional) must hold regardless of granularity - obligor-level or pre-bucketed",
+        "Explains that a CCC / industry concentration check is only computable if the registry carries the rating / industry field; if it is absent, that is a STOP for a missing input, not a passed test",
+        "Does NOT fabricate ratings or a concentration number when the field is missing",
+        "Frames adapting to a new layout as a new issuer-mapping (config), not a one-off manual transform",
+        "Flags a missing required field as a hard stop rather than emitting a blank"
+      ]
+    }
+  ]
+}

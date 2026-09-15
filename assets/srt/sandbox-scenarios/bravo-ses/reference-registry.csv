@@ -1,0 +1,13 @@
+Obligor,Country of Domicile,Country of Incorporation,Industry,Last Rating,Maturity Date,RONA (EUR mm),Probability of Default,Recovery Rate,Seniority,Status
+Brava Telecom SA,Spain,Spain,Telecom,BB,2029-09-20,120,0.0130,0.44,Senior Secured,Performing
+Rhein Auto GmbH,Germany,Germany,Automotive,B,2030-03-31,110,0.0350,0.37,Senior Unsecured,Performing
+Loire Foods SAS,France,France,Consumer Staples,BB,2028-12-15,100,0.0125,0.45,Senior Secured,Performing
+Tagus Energy,Portugal,Portugal,Energy,BB,2029-06-30,95,0.0140,0.46,Senior Secured,Performing
+Adria Pharma,Italy,Italy,Healthcare,BBB,2031-09-15,90,0.0035,0.50,Senior Secured,Performing
+Vistula Retail,Poland,Poland,Retail,B,2027-12-31,85,0.0380,0.32,Senior Unsecured,Performing
+Nordic Timber AB,Sweden,Sweden,Materials,BB,2030-06-20,80,0.0135,0.43,Senior Secured,Performing
+Hellas Shipping,Greece,Greece,Transportation,B,2028-06-30,75,0.0360,0.35,Senior Unsecured,Performing
+Danube Software,Austria,Austria,Technology,BB,2031-03-15,60,0.0150,0.41,Senior Unsecured,Performing
+Iberia Chemicals,Spain,Spain,Materials,BB,2029-12-10,55,0.0140,0.44,Senior Secured,Performing
+Benelux Media,Netherlands,Netherlands,Media,BB,2030-09-30,100,0.0145,0.42,Senior Unsecured,Performing
+Carpathia Mining,Romania,Romania,Materials,CCC,2027-06-30,30,1.0000,0.60,Senior Secured,Defaulted

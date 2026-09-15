@@ -1,0 +1,13 @@
+Obligor,Country of Domicile,Country of Incorporation,Industry,Last Rating,Maturity Date,RONA (USD mm),Probability of Default,Recovery Rate,Seniority
+Alpha Industrials Inc,United States,United States,Capital Goods,BB,2029-03-20,120,0.0120,0.45,Senior Secured
+Bluewater Foods Ltd,United Kingdom,United Kingdom,Consumer Staples,BB,2028-09-15,110,0.0130,0.42,Senior Secured
+Cobalt Auto Parts,Germany,Germany,Automotive,B,2030-06-30,100,0.0340,0.38,Senior Unsecured
+Delta Logistics SA,France,France,Transportation,BB,2029-12-15,95,0.0125,0.44,Senior Secured
+Evergreen Pharma,United States,Ireland,Healthcare,BBB,2031-03-31,90,0.0035,0.50,Senior Secured
+Falcon Telecom,Spain,Spain,Telecom,B,2028-06-20,85,0.0360,0.35,Senior Unsecured
+Granite Chemicals,United States,United States,Materials,BB,2030-09-10,80,0.0135,0.43,Senior Secured
+Harbor Retail Group,United States,United States,Retail,B,2027-12-31,75,0.0380,0.30,Senior Unsecured
+Indigo Software,India,India,Technology,BB,2031-06-15,60,0.0150,0.40,Senior Unsecured
+Juniper Energy,Canada,Canada,Energy,BB,2029-03-15,55,0.0140,0.46,Senior Secured
+Kestrel Media,United States,United States,Media,CCC,2027-09-30,50,0.0950,0.25,Subordinated
+Lumen Packaging,Netherlands,Netherlands,Materials,B,2030-12-20,80,0.0345,0.37,Senior Unsecured

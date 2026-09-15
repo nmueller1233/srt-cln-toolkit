@@ -1,0 +1,33 @@
+{
+  "_comment": "Inputs for a shadow-mode run (scripts/srt-review-package/shadow_run.py): prior-period mark + this period's market inputs + (optionally) the human's recorded actual mark to diff against. Shadow mode is READ-ONLY measurement (autonomy ladder L-step 1): the agent estimates the move from the canonical registry + these inputs and reports agreement vs the human. It writes no model and delivers nothing.",
+  "deal": "Alpha SRT 2025",
+  "period_end": "2026-06-30",
+  "active_tranche": "Equity",
+  "currency": "USD",
+  "prior": {
+    "wa_pd": 0.0220,
+    "wa_lgd": 0.5850,
+    "clean_price": 99.15,
+    "valuation_dm_bps": 545,
+    "origination_dm_bps": 553,
+    "writedown": 0.0185,
+    "wal": 3.7,
+    "sofr": 0.0375,
+    "equity_balance": 60,
+    "senior_balance": 920
+  },
+  "market": {
+    "sofr": 0.0366,
+    "benchmark_change_bps": -8,
+    "dampening_divisor": 2,
+    "spread_duration": 3.6,
+    "senior_balance": 905,
+    "floater": true
+  },
+  "recorded_actual": {
+    "_comment": "The mark the analyst actually booked this period (from the prior/period evidence). Omit this block until you have it; shadow mode still produces the estimate, just with no agreement diff.",
+    "clean_price": 99.05,
+    "valuation_dm_bps": 541,
+    "writedown": 0.0205
+  }
+}

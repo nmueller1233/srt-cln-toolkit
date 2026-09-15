@@ -1,0 +1,22 @@
+{
+  "id": "sequential-trigger",
+  "title": "Roll-forward where a sequential trigger occurred",
+  "run_type": "standard_roll_forward",
+  "deal": "Sandbox Sequential Trigger",
+  "trigger": {
+    "type": "cumulative_default",
+    "threshold": 0.05,
+    "current_level": 0.061,
+    "occurred_this_quarter": true
+  },
+  "payment_waterfall": {
+    "prior": "pro_rata",
+    "current": "sequential"
+  },
+  "expected": {
+    "must_not_continue_pro_rata": true,
+    "must_update_payment_waterfall_or_stop_for_human_review": true,
+    "mark_requires_trigger_attribution": true,
+    "report_ready_without_review": false
+  }
+}

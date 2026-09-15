@@ -1,0 +1,12 @@
+{
+  "id": "lgd-only-registry",
+  "title": "Normal roll-forward where registry gives LGD but no PDs",
+  "run_type": "standard_roll_forward",
+  "deal": "Sandbox LGD Only",
+  "expected": {
+    "sum_rona_ties": true,
+    "lgd_can_be_used_from_registry": true,
+    "pd_missing_is_stop_or_logged_analyst_fallback": true,
+    "must_not_fabricate_pd": true
+  }
+}

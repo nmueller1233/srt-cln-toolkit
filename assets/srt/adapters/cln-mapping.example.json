@@ -1,0 +1,26 @@
+{
+  "_comment": "Config for scripts/srt-registry-inputs/aggregate_to_cln.py. Like the issuer-mapping, this is the ONLY thing that changes per client/registry layout -- the bucket logic and the CLN formulas do not. Points the aggregator at whichever columns this registry happens to use; the script maps them to the fixed CLN buckets.",
+  "deal": "Example SRT 2025",
+  "bond_loan_flag": "Loan",
+  "rona_col": "rona",
+
+  "external_rating_cols": ["sp_rating", "moody_rating"],
+  "_external_rating_cols_note": "List every agency-rating column present. The script picks, per obligor, the rating from the most-populated column and falls back across the rest to maximise coverage.",
+
+  "internal_rating_cols": ["internal_grade"],
+  "internal_to_external_map": {
+    "_comment": "REQUIRED whenever internal grades are the only ratings. A generic internal scale with NO mapping to external/PD risk is a STOP -- the aggregator flags it for human investigation rather than guessing a bucket.",
+    "1": "A", "2": "BBB", "3": "BB", "4": "B", "5": "CCC"
+  },
+
+  "loan_type_col": "facility_type",
+  "region_col": "country_domicile",
+
+  "_buckets_fixed": {
+    "rating": ["IG", "BB", "B", "CCC", "NA"],
+    "loan_type": ["Leverage Loan", "Sn Unsecured", "Sn Secured", "Term Loans", "Revolver", "Trade Finance", "Property"],
+    "geography": ["US", "Eur", "Middle East", "India", "EM/Asia"]
+  },
+  "_include_na": "Yes (protocol): NA is kept as its own rating bucket.",
+  "_write": "Inputs only into cln.xlsx Performance Curves (C, D:H, I, O:U, V:Z). Never write J:N, AB (CDR) or AC (Severity) -- those are formulas. Append a new row for a deal/period not yet present."
+}

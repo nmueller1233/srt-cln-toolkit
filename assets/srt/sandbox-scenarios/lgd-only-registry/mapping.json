@@ -1,0 +1,20 @@
+{
+  "source": {"type": "csv"},
+  "column_map": {
+    "obligor_id": "Obligor",
+    "rona": "RONA",
+    "maturity_date": "Maturity Date",
+    "lgd": "LGD",
+    "status": "Status"
+  },
+  "deal_meta": {
+    "deal": "Sandbox LGD Only",
+    "currency": "USD",
+    "stated_reference_notional": 1000
+  },
+  "required_fields": ["rona", "maturity_date", "pd"],
+  "tie_out": {
+    "tolerance_pct": 0.005,
+    "count_defaulted_in_total": true
+  }
+}

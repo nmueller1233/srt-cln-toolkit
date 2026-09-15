@@ -1,0 +1,43 @@
+{
+  "_comment": "SRT quarterly model-update run state. Copy per run; fill {PLACEHOLDERS}. Step list mirrors references/process.md; the fields mirror the control workbook's 'Pilot Run State' tab so it pastes straight in. Status: Not Started | In Progress | Blocked | Done.",
+  "run_id": "srt-{DEAL}-{PERIOD}",
+  "context": {
+    "asset_class": "01_SRT",
+    "deal": "{DEAL}",
+    "period_end": "{YYYY-MM-DD}",
+    "frequency": "quarterly",
+    "target_folder": "{period_folder}",
+    "data_classification": "non_client_test",
+    "run_type": "roll_forward",
+    "carries_ses": null,
+    "reinvestment_status": "{in | past}",
+    "currency": "{USD | EUR}"
+  },
+  "workflow": {
+    "workflow_id": "srt-quarterly-model-update",
+    "model": "Srt dcf.xlsm",
+    "model_map_ref": "references/model-cell-map.md",
+    "process_ref": "references/process.md"
+  },
+  "status": "not_started",
+  "steps": [
+    { "step_id": "01-intake",       "name": "Confirm run context & permissions",                 "lane": "manual",                 "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "" },
+    { "step_id": "02-copy-model",   "name": "Create current-period copy of Srt dcf.xlsm",         "lane": "manual",                 "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "Do not edit template/formulas/named ranges." },
+    { "step_id": "03-classify",     "name": "Classify run (quarterly update / new deal / amendment)",  "lane": "manual",                 "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "" },
+    { "step_id": "04-legal-map",    "name": "Map legal fields (new deal/amendment, source-only)",  "lane": "manual",                 "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "Skip on quarterly update." },
+    { "step_id": "05-calibrate",    "name": "Calibrate Origination DM (L30) to par (new deal)",    "lane": "excel_vba",              "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "Skip on quarterly update." },
+    { "step_id": "06-portfolio",    "name": "Update Portfolio Maturity Profile from registry",     "lane": "power_query",            "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "Maturity + current RONA; record reinvestment status." },
+    { "step_id": "07-pd-lgd",       "name": "Update PD and LGD/severity",                          "lane": "excel_vba",              "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "RONA-weighted or stratification fallback." },
+    { "step_id": "08-ses",          "name": "SES gate: net losses against SES before writedown",   "lane": "manual",                 "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "Deal-dependent." },
+    { "step_id": "09-rates-df",     "name": "Refresh discount factors & base-rate fixing",          "lane": "vendor_addin",           "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "State day-count basis. Stop on unverified refresh." },
+    { "step_id": "10-spread-roll",  "name": "Roll Spread Analysis forward (L32 multiplier)",        "lane": "vendor_addin",           "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "Record benchmark + dampening factor." },
+    { "step_id": "11-scenarios",    "name": "Recompute attach/detach; run price/DM/writedown",      "lane": "excel_vba",              "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "" },
+    { "step_id": "12-attribution",  "name": "Write vs-prior mark attribution per tranche",          "lane": "manual",                 "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "Unexplained move = stop." },
+    { "step_id": "13-checks",       "name": "Confirm model checks (Inputs!D3/D4 = OK)",             "lane": "excel_vba",              "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "Failed checks are hard stops." },
+    { "step_id": "14-report",       "name": "Leave report generalised (out of pilot)",             "lane": "manual",                 "status": "Not Started", "human_review": "No",  "evidence_ref": "", "notes": "Open item, not a blocker." },
+    { "step_id": "15-assemble",     "name": "Assemble evidence + exceptions; ready for review",     "lane": "manual",                 "status": "Not Started", "human_review": "Yes", "evidence_ref": "", "notes": "" }
+  ],
+  "evidence_log": "evidence-log.csv",
+  "exception_log": "exception-log.csv",
+  "human_review": { "required": true, "reviewer": "{reviewer}", "status": "not_requested", "notes": "Deliverable is ready for human review only, never auto-delivered." }
+}

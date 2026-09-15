@@ -1,0 +1,8 @@
+Obligor,RONA (USD mm),PD,Recovery,Seniority,Maturity,Status,Rating
+Alpha Industrials,200,0.010,0.45,Senior Secured,2029-06-30,Performing,BB
+Cobalt Auto Parts,150,0.015,0.40,Senior Unsecured,2030-03-31,Performing,BB
+Kestrel Media,120,0.025,0.35,Subordinated,2031-12-15,Performing,B
+Larch Foods,180,0.008,0.50,Senior Secured,2029-09-30,Performing,BBB
+Marigold Retail,160,0.020,0.40,Senior Unsecured,2030-06-30,Performing,B
+Birch Pharma,150,0.012,0.45,Senior Secured,2030-12-31,Performing,BB
+Spruce Logistics,40,,0.40,Senior Unsecured,2031-03-31,Defaulted,CCC

@@ -1,0 +1,11 @@
+Obligor,Country of Domicile,Country of Incorporation,Industry,Last Rating,Maturity Date,RONA (USD mm),Probability of Default,Recovery Rate,Seniority
+Delta Holdings,United States,United States,Industrials,BB,2029-03-20,120,0.0120,0.45,Senior Secured
+Marsh Foods,United Kingdom,United Kingdom,Consumer Staples,BB,2028-09-15,110,0.0130,0.42,Senior Secured
+Oakline Auto,Germany,Germany,Automotive,B,2030-06-30,100,0.0340,,Senior Unsecured
+Pinecrest Logistics,France,France,Transportation,BB,2029-12-15,95,0.0125,0.44,Senior Secured
+Quartz Pharma,United States,Ireland,Healthcare,BBB,2031-03-31,90,0.0035,0.50,Senior Secured
+Ridgeline Telecom,Spain,Spain,Telecom,B,2028-06-20,85,0.0360,0.35,Senior Unsecured
+Summit Chemicals,United States,United States,Materials,BB,2030-09-10,80,0.0135,0.43,Senior Secured
+Tideway Retail,United States,United States,Retail,B,2027-12-31,75,0.0380,0.30,Senior Unsecured
+Umbra Software,India,India,Technology,BB,2031-06-15,60,0.0150,0.40,Senior Unsecured
+Vista Energy,Canada,Canada,Energy,BB,2029-03-15,65,0.0140,0.46,Senior Secured
